@@ -1,6 +1,8 @@
 import {Switch, Route} from 'react-router-dom'
 
 import LoginPage from './components/LoginPage'
+import Home from './components/HomePage'
+import ProtectedRoute from './components/ProtectedRoute'
 import './App.css'
 
 // These are the lists used in the application. You can move them to any component needed.
@@ -45,7 +47,8 @@ const salaryRangesList = [
 const App = () => (
   <div className="bg-container">
     <Switch>
-      <Route exact path="/" component={LoginPage} />
+      <Route exact path="/login" component={LoginPage} />
+      <ProtectedRoute exact path="/" component={Home} />
     </Switch>
   </div>
 )
