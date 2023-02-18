@@ -1,0 +1,79 @@
+* {
+  /* border: 1px solid white; */
+  font-family: 'roboto';
+}
+.job-card-container {
+  padding: 25px 30px;
+  background-color: #202020;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border-radius: 20px;
+}
+.link-type {
+  text-decoration: none;
+  color: white;
+}
+.logo-title-rating-container {
+  display: flex;
+  align-items: center;
+}
+.company-logo {
+  height: 75px;
+  border-radius: 10px;
+}
+.title-container {
+  margin-left: 15px;
+}
+.card-title {
+  font-size: 25px;
+  color: white;
+  margin: 0;
+  font-weight: 600;
+}
+.card-rating {
+  margin: 0;
+  font-weight: 500;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+}
+.star-icon-card {
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+}
+.location-employment-conatiner {
+  display: flex;
+  align-items: center;
+}
+.location-card {
+  font-size: 18px;
+  font-weight: 500;
+  margin-right: 35px;
+  display: flex;
+  align-items: center;
+}
+.location-icon {
+  height: 28px;
+  width: 28px;
+  margin-right: 10px;
+}
+.package-card {
+  font-size: 23px;
+  font-weight: 500;
+  margin-left: auto;
+  /* margin-right: 15px; */
+}
+.card-separator-line {
+  border: 2px solid #7e858e;
+  margin: 0;
+}
+.description-heading {
+  font-size: 21px;
+  font-weight: 600;
+}
+.card-description {
+  font-size: 17px;
+  font-weight: 500;
+  color: #f1f5f9;
+}
