@@ -1,0 +1,26 @@
+.not-found-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+}
+.not-found-image {
+  height: 450px;
+}
+.failure-heading {
+  color: white;
+  font-size: 40px;
+  font-weight: 500;
+  font-family: 'roboto';
+}
+.failure-para-1 {
+  font-size: 15px;
+
+  color: #94a3b8;
+  margin: 0;
+  margin-bottom: 20px;
+}

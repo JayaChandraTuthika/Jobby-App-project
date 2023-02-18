@@ -54,25 +54,29 @@ class JobsPage extends Component {
   state = {
     profileStatus: statusConstants.initial,
     profileDetails: {},
+    jobsList: [],
     typesOfEmployment: [],
     selectedSalaryRange: 0,
+    searchInput: '',
+    jobStatus: statusConstants.initial,
   }
 
   componentDidMount() {
     this.getProfileDetails()
+    this.getJobsList()
   }
 
   onAddEmployment = id => {
     const {typesOfEmployment} = this.state
     const newList = [...typesOfEmployment, id]
-    this.setState({typesOfEmployment: newList})
+    this.setState({typesOfEmployment: newList}, this.getJobsList)
   }
 
   onRemoveEmployment = id => {
     const {typesOfEmployment} = this.state
     const newList = typesOfEmployment.filter(each => each !== id)
     // console.log(newList)
-    this.setState({typesOfEmployment: newList})
+    this.setState({typesOfEmployment: newList}, this.getJobsList)
   }
 
   getProfileDetails = async () => {
@@ -105,16 +109,49 @@ class JobsPage extends Component {
     }
   }
 
-  //   renderJobsListComponent = () => {
-  //     const {typesOfEmployment, selectedSalaryRange} = this.state
-  //     console.log(this.props)
-  //     return (
-  //       <JobsList
-  //         typesOfEmployment={typesOfEmployment}
-  //         selectedSalaryRange={selectedSalaryRange}
-  //       />
-  //     )
-  //   }
+  onSearchChange = text => {
+    // console.log(text)
+    this.setState({searchInput: text})
+  }
+
+  getJobsList = async () => {
+    this.setState({jobStatus: statusConstants.inProgress})
+    const {typesOfEmployment, selectedSalaryRange, searchInput} = this.state
+    console.log(searchInput)
+
+    const jwtToken = Cookies.get('jwt_token')
+    const joinedTypesOfEmplayment = typesOfEmployment.join(',')
+    const getJobsUrl = `https://apis.ccbp.in/jobs?employment_type=${joinedTypesOfEmplayment}&minimum_package=${selectedSalaryRange}&search=${searchInput}`
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+    const response = await fetch(getJobsUrl, options)
+    if (response.ok === true) {
+      const data = await response.json()
+      const jobsData = data.jobs
+      //   console.log(jobsData)
+      const updatedJobsData = jobsData.map(each => ({
+        id: each.id,
+        title: each.title,
+        companyLogoUrl: each.company_logo_url,
+        employmentType: each.employment_type,
+        jobDescription: each.job_description,
+        location: each.location,
+        packagePerAnnum: each.package_per_annum,
+        rating: each.rating,
+      }))
+
+      this.setState({
+        jobsList: updatedJobsData,
+        jobStatus: statusConstants.success,
+      })
+    } else {
+      this.setState({jobStatus: this.statusConstants.failure})
+    }
+  }
 
   renderProfile = () => {
     const {profileDetails} = this.state
@@ -122,7 +159,7 @@ class JobsPage extends Component {
     return (
       <div className="profile-container">
         <img src={profileImageUrl} alt="profile" className="profile-pic" />
-        <p className="profile-name">{name}</p>
+        <h1 className="profile-name">{name}</h1>
         <p className="profile-short-bio">{shortBio}</p>
       </div>
     )
@@ -134,8 +171,36 @@ class JobsPage extends Component {
     </div>
   )
 
+  onRetry = () => {
+    this.getProfileDetails()
+    this.getJobsList()
+  }
+
+  renderFailureContainer = () => (
+    <div className="failure-container">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+        alt="failure view"
+        className="failure-img"
+      />
+      <h1 className="failure-heading">Oops! Something Went Wrong</h1>
+      <p className="failure-para-1 ">
+        We cannot seem to find the page you are looking for
+      </p>
+      <button type="button" className="retry-profile-btn" onClick={this.retry}>
+        Retry
+      </button>
+    </div>
+  )
+
   render() {
-    const {profileStatus, typesOfEmployment, selectedSalaryRange} = this.state
+    const {
+      profileStatus,
+      typesOfEmployment,
+      selectedSalaryRange,
+      jobsList,
+      jobStatus,
+    } = this.state
 
     let profile
 
@@ -146,7 +211,11 @@ class JobsPage extends Component {
       case statusConstants.failure:
         profile = (
           <div className="profile-failure-container">
-            <button type="button" className="retry-profile-btn">
+            <button
+              type="button"
+              className="retry-profile-btn"
+              onClick={this.onRetry}
+            >
               Retry
             </button>
           </div>
@@ -159,6 +228,29 @@ class JobsPage extends Component {
         profile = null
         break
     }
+
+    let jobs
+    switch (jobStatus) {
+      case statusConstants.success:
+        // console.log(jobsList)
+        jobs = (
+          <JobsList
+            jobsList={jobsList}
+            onRetry={this.onRetry}
+            onSearchChange={this.onSearchChange}
+          />
+        )
+        break
+      case statusConstants.inProgress:
+        jobs = this.renderLoader()
+        break
+      case statusConstants.failure:
+        jobs = this.renderFailureContainer()
+        break
+      default:
+        jobs = null
+        break
+    }
     return (
       <div className="jobs-bg-container">
         <Header />
@@ -166,7 +258,7 @@ class JobsPage extends Component {
           <div className="side-bar-container">
             {profile}
             <hr className="side-bar-separator-line" />
-            <h1 className="filter-category-heading">Types of Employment</h1>
+            <h1 className="filter-category-heading">Type of Employment</h1>
             <ul className="employment-type-list-container">
               {employmentTypesList.map(each => {
                 const onAddEmploymentType = event => {
@@ -198,7 +290,7 @@ class JobsPage extends Component {
               })}
             </ul>
             <hr className="side-bar-separator-line" />
-            <h1 className="filter-category-heading">Types of Employment</h1>
+            <h1 className="filter-category-heading">Salary Range</h1>
             <ul className="employment-type-list-container">
               {salaryRangesList.map(each => {
                 const onChangeSalary = event => {
@@ -227,11 +319,7 @@ class JobsPage extends Component {
               })}
             </ul>
           </div>
-
-          <JobsList
-            typesOfEmployment={typesOfEmployment}
-            selectedSalaryRange={selectedSalaryRange}
-          />
+          {jobs}
         </div>
       </div>
     )

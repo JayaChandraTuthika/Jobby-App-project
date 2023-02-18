@@ -64,7 +64,7 @@ class LoginPage extends Component {
         <form className="login-form" onSubmit={this.submitForm}>
           <img
             src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
-            alt=""
+            alt="website logo"
             className="login-logo"
           />
           <label htmlFor="userInput" className="form-label">

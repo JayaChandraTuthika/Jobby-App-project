@@ -6,12 +6,17 @@
   align-items: center;
   margin: 0;
 }
+* {
+  /* border: 1px solid white; */
+}
 .logo-image {
   height: 50px;
 }
 .links-container {
   display: flex;
   align-items: center;
+  list-style-type: none;
+  width: 60%;
 }
 .nav-link {
   color: white;
@@ -20,6 +25,9 @@
   text-decoration: none;
   margin: 5px 20px;
   letter-spacing: 2px;
+}
+.margin-left {
+  margin-left: auto;
 }
 .logout-btn {
   color: white;
