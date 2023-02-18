@@ -111,7 +111,7 @@ class JobsPage extends Component {
 
   onSearchChange = text => {
     // console.log(text)
-    this.setState({searchInput: text})
+    this.setState({searchInput: text}, this.getJobsList)
   }
 
   getJobsList = async () => {
@@ -196,8 +196,7 @@ class JobsPage extends Component {
   render() {
     const {
       profileStatus,
-      typesOfEmployment,
-      selectedSalaryRange,
+
       jobsList,
       jobStatus,
     } = this.state
@@ -294,9 +293,12 @@ class JobsPage extends Component {
             <ul className="employment-type-list-container">
               {salaryRangesList.map(each => {
                 const onChangeSalary = event => {
-                  this.setState({
-                    selectedSalaryRange: parseInt(event.target.value),
-                  })
+                  this.setState(
+                    {
+                      selectedSalaryRange: parseInt(event.target.value),
+                    },
+                    this.getJobsList,
+                  )
                 }
                 return (
                   <li
