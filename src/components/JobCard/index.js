@@ -26,26 +26,27 @@ const JobCard = props => {
             className="company-logo"
           />
           <div className="title-container">
-            <p className="card-title">{title}</p>
-            <p className="card-rating">
+            <h1 className="card-title">{title}</h1>
+            <div>
               <BsFillStarFill color="#fcc035" className="star-icon-card" />
-              {rating}
-            </p>
+              <p className="card-rating">{rating}</p>
+            </div>
           </div>
         </div>
         <div className="location-employment-conatiner">
-          <p className="location-card">
+          <div>
             <MdLocationOn className="location-icon" />
-            {location}
-          </p>
-          <p className="location-card">
+            <p className="location-card">{location}</p>
+          </div>
+          <div>
             <MdWork className="location-icon" />
-            {employmentType}
-          </p>
+            <p className="location-card">{employmentType}</p>
+          </div>
+
           <p className="package-card">{packagePerAnnum}</p>
         </div>
         <hr className="card-separator-line" />
-        <p className="description-heading">Description</p>
+        <h1 className="description-heading">Description</h1>
         <p className="card-description">{jobDescription}</p>
       </Link>
     </li>

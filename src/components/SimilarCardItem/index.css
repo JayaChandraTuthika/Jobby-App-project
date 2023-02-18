@@ -1,0 +1,84 @@
+.job-specific-details-container-1 {
+  background-color: #202020;
+  width: 40%;
+  border-radius: 28px;
+  margin-top: 0;
+  padding: 4% 3%;
+  margin-right: 35px;
+  margin-bottom: 35px;
+}
+.link-style-similar-cards {
+  text-decoration: none;
+}
+.logo-title-rating-container-1 {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+.company-logo-1 {
+  height: 85px;
+  border-radius: 10px;
+}
+.title-container-1 {
+  margin-left: 35px;
+}
+.card-title-1 {
+  font-size: 25px;
+  color: white;
+  margin: 0;
+  font-weight: 600;
+}
+.card-rating-1 {
+  margin: 0;
+  font-weight: 500;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+}
+.star-icon-card-1 {
+  height: 25px;
+  width: 25px;
+  margin-right: 10px;
+}
+.location-employment-conatiner-1 {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.location-card-1 {
+  font-size: 20px;
+  color: #cbd5e1;
+  font-weight: 500;
+  margin-right: 35px;
+  display: flex;
+  align-items: center;
+}
+.location-icon-1 {
+  height: 35px;
+  width: 28px;
+  margin-right: 10px;
+  color: white;
+}
+
+.card-separator-line-1 {
+  border: 2px solid #7e858e;
+  margin: 0;
+}
+.description-heading-2 {
+  font-size: 32px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+}
+
+.visit-link-icon {
+  height: 45px;
+  margin-left: 10px;
+}
+.card-description-2 {
+  font-size: 22px;
+  font-weight: 500;
+  color: #cbd5e1;
+  line-height: 44px;
+}
