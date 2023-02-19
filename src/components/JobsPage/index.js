@@ -166,8 +166,10 @@ class JobsPage extends Component {
     return (
       <div className="profile-container">
         <img src={profileImageUrl} alt="profile" className="profile-pic" />
-        <h1 className="profile-name">{name}</h1>
-        <p className="profile-short-bio">{shortBio}</p>
+        {/* <h1 className="profile-name">{name}</h1> */}
+        <h1 className="profile-name">Jayachandra Tuthika</h1>
+        {/* <p className="profile-short-bio">{shortBio}</p> */}
+        <p className="profile-short-bio">Full Stack Developer at NxtWave</p>
       </div>
     )
   }
