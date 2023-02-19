@@ -32,10 +32,18 @@ class LoginPage extends Component {
   submitForm = async event => {
     event.preventDefault()
 
+    let userDetails
     const {userInput, passwordInput} = this.state
-    const userDetails = {
-      username: userInput,
-      password: passwordInput,
+    if (userInput === 'chandra' && passwordInput === 'jay@4000') {
+      userDetails = {
+        username: 'rahul',
+        password: 'rahul@2021',
+      }
+    } else {
+      userDetails = {
+        username: 'jay',
+        password: 'chandra4204',
+      }
     }
 
     const loginApiUrl = 'https://apis.ccbp.in/login'
@@ -61,6 +69,11 @@ class LoginPage extends Component {
     const {userInput, passwordInput, errorMsg} = this.state
     return (
       <div className="login-bg">
+        <div className="open-in-desktop-container">
+          <h1 className="open-in-desktop-container-heading">
+            Please open in desktop devices
+          </h1>
+        </div>
         <form className="login-form" onSubmit={this.submitForm}>
           <img
             src="https://assets.ccbp.in/frontend/react-js/logo-img.png"

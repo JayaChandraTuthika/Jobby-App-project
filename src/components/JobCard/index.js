@@ -27,18 +27,18 @@ const JobCard = props => {
           />
           <div className="title-container">
             <h1 className="card-title">{title}</h1>
-            <div>
+            <div className="tex-icon-containers">
               <BsFillStarFill color="#fcc035" className="star-icon-card" />
               <p className="card-rating">{rating}</p>
             </div>
           </div>
         </div>
         <div className="location-employment-conatiner">
-          <div>
+          <div className="tex-icon-containers">
             <MdLocationOn className="location-icon" />
             <p className="location-card">{location}</p>
           </div>
-          <div>
+          <div className="tex-icon-containers">
             <MdWork className="location-icon" />
             <p className="location-card">{employmentType}</p>
           </div>

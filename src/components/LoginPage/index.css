@@ -10,6 +10,15 @@
   min-height: 100vh;
   background-color: #121212;
 }
+.open-in-desktop-container {
+  display: none;
+}
+.open-in-desktop-container-heading {
+  color: white;
+  font-size: 30px;
+  font-family: 'Bree serif';
+  text-align: center;
+}
 .login-form {
   padding: 50px;
   border: 10px;
@@ -63,4 +72,13 @@
   margin: 5px;
   align-self: flex-start;
   text-align: left;
+}
+
+@media (max-width: 1199px) {
+  .login-form {
+    display: none;
+  }
+  .open-in-desktop-container {
+    display: block;
+  }
 }

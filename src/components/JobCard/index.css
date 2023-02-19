@@ -2,6 +2,10 @@
   /* border: 1px solid white; */
   font-family: 'roboto';
 }
+.tex-icon-containers {
+  display: flex;
+  align-items: center;
+}
 .job-card-container {
   padding: 25px 30px;
   background-color: #202020;
@@ -16,6 +20,7 @@
 .logo-title-rating-container {
   display: flex;
   align-items: center;
+  padding: 0;
 }
 .company-logo {
   height: 75px;
@@ -31,15 +36,12 @@
   font-weight: 600;
 }
 .card-rating {
-  margin: 0;
   font-weight: 500;
-  margin-top: 15px;
-  display: flex;
-  align-items: center;
 }
 .star-icon-card {
   height: 25px;
   width: 25px;
+  margin: 0;
   margin-right: 5px;
 }
 .location-employment-conatiner {
@@ -65,7 +67,7 @@
   /* margin-right: 15px; */
 }
 .card-separator-line {
-  border: 2px solid #7e858e;
+  border: 1px solid #7e858e;
   margin: 0;
 }
 .description-heading {

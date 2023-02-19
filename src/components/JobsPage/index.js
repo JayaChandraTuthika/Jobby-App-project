@@ -2,6 +2,8 @@ import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 
+import {BsSearch} from 'react-icons/bs'
+
 import Header from '../Header'
 import JobsList from '../JobsList'
 import './index.css'
@@ -90,6 +92,7 @@ class JobsPage extends Component {
         Authorization: `Bearer ${jwtToken}`,
       },
     }
+
     const response = await fetch(profileUrl, options)
     if (response.ok === true) {
       const data = await response.json()
@@ -109,17 +112,22 @@ class JobsPage extends Component {
     }
   }
 
-  onSearchChange = text => {
+  searchForJobs = () => {
+    this.getJobsList()
+  }
+
+  onSearchChange = event => {
     // console.log(text)
-    this.setState({searchInput: text}, this.getJobsList)
+    this.setState({searchInput: event.target.value})
   }
 
   getJobsList = async () => {
     this.setState({jobStatus: statusConstants.inProgress})
     const {typesOfEmployment, selectedSalaryRange, searchInput} = this.state
-    console.log(searchInput)
+    // console.log(searchInput)
 
     const jwtToken = Cookies.get('jwt_token')
+
     const joinedTypesOfEmplayment = typesOfEmployment.join(',')
     const getJobsUrl = `https://apis.ccbp.in/jobs?employment_type=${joinedTypesOfEmplayment}&minimum_package=${selectedSalaryRange}&search=${searchInput}`
     const options = {
@@ -128,8 +136,8 @@ class JobsPage extends Component {
         Authorization: `Bearer ${jwtToken}`,
       },
     }
-    const response = await fetch(getJobsUrl, options)
-    if (response.ok === true) {
+    try {
+      const response = await fetch(getJobsUrl, options)
       const data = await response.json()
       const jobsData = data.jobs
       //   console.log(jobsData)
@@ -143,13 +151,12 @@ class JobsPage extends Component {
         packagePerAnnum: each.package_per_annum,
         rating: each.rating,
       }))
-
       this.setState({
         jobsList: updatedJobsData,
         jobStatus: statusConstants.success,
       })
-    } else {
-      this.setState({jobStatus: this.statusConstants.failure})
+    } catch (error) {
+      this.setState({jobStatus: statusConstants.failure})
     }
   }
 
@@ -171,8 +178,11 @@ class JobsPage extends Component {
     </div>
   )
 
-  onRetry = () => {
+  onRetryProfile = () => {
     this.getProfileDetails()
+  }
+
+  onRetryJobs = () => {
     this.getJobsList()
   }
 
@@ -187,19 +197,18 @@ class JobsPage extends Component {
       <p className="failure-para-1 ">
         We cannot seem to find the page you are looking for
       </p>
-      <button type="button" className="retry-profile-btn" onClick={this.retry}>
+      <button
+        type="button"
+        className="retry-profile-btn"
+        onClick={this.onRetryJobs}
+      >
         Retry
       </button>
     </div>
   )
 
   render() {
-    const {
-      profileStatus,
-
-      jobsList,
-      jobStatus,
-    } = this.state
+    const {profileStatus, searchInput, jobsList, jobStatus} = this.state
 
     let profile
 
@@ -213,7 +222,7 @@ class JobsPage extends Component {
             <button
               type="button"
               className="retry-profile-btn"
-              onClick={this.onRetry}
+              onClick={this.onRetryProfile}
             >
               Retry
             </button>
@@ -231,7 +240,6 @@ class JobsPage extends Component {
     let jobs
     switch (jobStatus) {
       case statusConstants.success:
-        // console.log(jobsList)
         jobs = (
           <JobsList
             jobsList={jobsList}
@@ -240,14 +248,12 @@ class JobsPage extends Component {
           />
         )
         break
-      case statusConstants.inProgress:
-        jobs = this.renderLoader()
-        break
       case statusConstants.failure:
         jobs = this.renderFailureContainer()
         break
+
       default:
-        jobs = null
+        jobs = this.renderLoader()
         break
     }
     return (
@@ -321,7 +327,26 @@ class JobsPage extends Component {
               })}
             </ul>
           </div>
-          {jobs}
+          <div className="jobs-container">
+            <div className="search-input-container">
+              <input
+                type="search"
+                className="search-input"
+                placeholder="Search"
+                onChange={this.onSearchChange}
+                value={searchInput}
+              />
+              <button
+                type="button"
+                data-testid="searchButton"
+                className="search-btn"
+                onClick={this.searchForJobs}
+              >
+                <BsSearch className="search-icon" />
+              </button>
+            </div>
+            {jobs}
+          </div>
         </div>
       </div>
     )

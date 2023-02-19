@@ -8,6 +8,7 @@
 }
 * {
   font-family: 'roboto';
+  /* border: 1px solid white; */
 }
 .bottom-section {
   width: 100%;
@@ -15,6 +16,7 @@
   padding: 3% 5%;
   background-color: black;
   display: flex;
+  align-items: flex-start;
 }
 .side-bar-container {
   width: 450px;
@@ -60,12 +62,12 @@
   border-radius: 4px;
 }
 .side-bar-separator-line {
-  border: 2px solid #7e858e;
+  border: 1px solid #7e858e;
   margin: 25px 0px;
 }
 .loader-container {
   height: 260px;
-  width: 320px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
